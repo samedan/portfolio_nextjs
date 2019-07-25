@@ -42,7 +42,7 @@ class Index extends SuperComponent {
       <BaseLayout>
         <h1>{title}</h1>
         <h2>userData: {userData.title}</h2>
-        <button onClick={() => this.updateTitle()}>Change title</button>
+        <button onClick={() => this.updateTitle()}>Updated</button>
       </BaseLayout>
     );
   }
