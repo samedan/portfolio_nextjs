@@ -1,4 +1,7 @@
 @import './shared/fonts';
+@import './shared/colors';
+@import './shared//portfolios';
+
 // PAGES
 @import './index';
 // COMPONENTS
@@ -25,8 +28,23 @@ body {
 .absolute {
   position: absolute;
 }
+.error {
+  font-weight: 700;
+  color: red;
+}
 
 .base-page {
   padding-top: 150px;
-  color: white;
+  color: black;
+  background-color: #ecedee;
+  min-height: 100vh;
+
+  .page-header {
+    .page-header-title {
+      font-weight: 700;
+      color: black;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+  }
 }
