@@ -1,5 +1,6 @@
 const express = require('express');
 const next = require('next');
+const mongoose = require('mongoose');
 const routes = require('../routes');
 
 // SERVICES
@@ -19,6 +20,14 @@ const secretData = [
     description: 'My secret passwords'
   }
 ];
+
+mongoose
+  .connect(
+    'mongodb://dan:Fuckyahoo667@ds213538.mlab.com:13538/portfolio-dan-dev',
+    { useNewUrlParser: true }
+  )
+  .then(() => console.log('Database connected'))
+  .catch(err => console.log(err));
 
 app
   .prepare()
