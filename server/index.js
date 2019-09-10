@@ -9,6 +9,15 @@ const authService = require('./services/auth');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = routes.getRequestHandler(app);
+const config = require('./config');
+
+const Book = require('./models/book');
+const bodyParser = require('body-parser');
+
+// ROUTES
+const booksRoutes = require('./routes/book');
+const portfolioRoutes = require('./routes/portfolio');
+const blogRoutes = require('./routes/blog');
 
 const secretData = [
   {
@@ -22,17 +31,23 @@ const secretData = [
 ];
 
 mongoose
-  .connect(
-    'mongodb://dan:Fuckyahoo667@ds213538.mlab.com:13538/portfolio-dan-dev',
-    { useNewUrlParser: true }
-  )
+  .connect(config.DB_URI, { useNewUrlParser: true })
   .then(() => console.log('Database connected'))
   .catch(err => console.log(err));
+
+// async () =>
+//   (await mongoose.connect(config.DB_URI, { useNewUrlParser: true }))();
 
 app
   .prepare()
   .then(() => {
     const server = express();
+    server.use(bodyParser.json());
+    server.use('/api/v1/books', booksRoutes);
+    server.use('/api/v1/portfolios', portfolioRoutes);
+    server.use('/api/v1/blogs', blogRoutes);
+
+    // ENDPOINTS
 
     server.get('/api/v1/secret', authService.checkJWT, (req, res) => {
       return res.json(secretData);

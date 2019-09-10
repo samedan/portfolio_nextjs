@@ -1,11 +1,13 @@
 @import './shared/fonts';
 @import './shared/colors';
 @import './shared//portfolios';
+@import './blocks';
 
 // PAGES
 @import './index';
 // COMPONENTS
 @import './header';
+@import './slate-editor';
 
 html,
 body {

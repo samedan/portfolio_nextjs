@@ -2,6 +2,11 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { getCookieFromReq } from '../helpers/utils';
 
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost:3000/api/v1',
+  timeout: 3000 // time allowed befire the request is rejected
+});
+
 const setAuthHeader = req => {
   const token = req ? getCookieFromReq(req, 'jwt') : Cookies.getJSON('jwt');
 
@@ -10,10 +15,87 @@ const setAuthHeader = req => {
   } else return undefined;
 };
 
-export const getSecretData = async req => {
-  const url = 'http://localhost:3000/api/v1/secret';
+const rejectPromise = resError => {
+  let error = {};
 
-  return await axios
+  if (resError && resError.response && resError.response.data) {
+    error = resError.response.data;
+  } else {
+    error = resError;
+  }
+
+  return Promise.reject(error);
+};
+
+export const getSecretData = async req => {
+  const url = '/secret';
+
+  return await axiosInstance
     .get(url, setAuthHeader(req))
     .then(response => response.data);
+};
+
+export const getPortfolios = async () => {
+  return await axiosInstance.get('/portfolios').then(response => response.data);
+};
+
+export const getPortfolioById = async id => {
+  return await axiosInstance
+    .get(`portfolios/${id}`)
+    .then(response => response.data);
+};
+
+export const createPortfolio = async portfolioData => {
+  return axiosInstance
+    .post('/portfolios', portfolioData, setAuthHeader())
+    .then(response => response.data)
+    .catch(error => rejectPromise(error));
+};
+
+export const updatePortfolio = async portfolioData => {
+  return axiosInstance
+    .patch(`/portfolios/${portfolioData._id}`, portfolioData, setAuthHeader())
+    .then(response => response.data)
+    .catch(error => rejectPromise(error));
+};
+
+export const deletePortfolio = portfolioId => {
+  return axiosInstance
+    .delete(`/portfolios/${portfolioId}`, setAuthHeader())
+    .then(response => response.data);
+};
+
+///////////////////////
+// BLOG Actions
+
+// export const saveBlog = blogData => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       resolve('Save Blog - promised Resolved');
+//     }, 1000);
+//   });
+// };
+
+export const getUserBlogs = async req => {
+  return await axiosInstance
+    .get('/blogs/me', setAuthHeader(req))
+    .then(response => response.data);
+};
+
+export const createBlog = (blogData, lockId) => {
+  return axiosInstance
+    .post(`/blogs?lockId=${lockId}`, blogData, setAuthHeader())
+    .then(response => response.data)
+    .catch(err => rejectPromise(err));
+};
+
+export const updateBlog = (blogData, blogId) => {
+  return axiosInstance
+    .patch(`/blogs/${blogId}`, blogData, setAuthHeader())
+    .then(response => response.data)
+    .catch(err => rejectPromise(err));
+};
+
+export const getBlogById = blogId => {
+  return axiosInstance.get(`/blogs/${blogId}`).then(response => response.data);
 };
