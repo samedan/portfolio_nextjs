@@ -5,7 +5,7 @@ const blogSchema = new Schema({
   userId: { type: String, required: true },
   // 'sparse: true' allows for null slugs
   slug: { type: String, unique: true, sparse: true },
-  title: { type: String, required: true },
+  title: { type: String, required: true, maxlength: 96 },
   subTitle: { type: String, required: true },
   story: { type: String, required: true },
   createdAt: { type: String, default: Date.now },

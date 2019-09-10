@@ -4,13 +4,14 @@ import { getCookieFromReq } from '../helpers/utils';
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000/api/v1',
-  timeout: 3000 // time allowed befire the request is rejected
+  timeout: 3000 // time allowed before the request is rejected
 });
 
 const setAuthHeader = req => {
   const token = req ? getCookieFromReq(req, 'jwt') : Cookies.getJSON('jwt');
 
   if (token) {
+    console.log(token);
     return { headers: { authorization: `Bearer ${token}` } };
   } else return undefined;
 };
@@ -76,6 +77,16 @@ export const deletePortfolio = portfolioId => {
 //   });
 // };
 
+export const getBlogs = async req => {
+  return await axiosInstance.get('/blogs').then(response => response.data);
+};
+
+export const getBlogBySlug = async slug => {
+  return await axiosInstance
+    .get(`/blogs/s/${slug}`)
+    .then(response => response.data);
+};
+
 export const getUserBlogs = async req => {
   return await axiosInstance
     .get('/blogs/me', setAuthHeader(req))
@@ -98,4 +109,11 @@ export const updateBlog = (blogData, blogId) => {
 
 export const getBlogById = blogId => {
   return axiosInstance.get(`/blogs/${blogId}`).then(response => response.data);
+};
+
+export const deleteBlog = blogId => {
+  return axiosInstance
+    .delete(`/blogs/${blogId}`, setAuthHeader())
+    .then(response => response.data)
+    .catch(err => rejectPromise(err));
 };
