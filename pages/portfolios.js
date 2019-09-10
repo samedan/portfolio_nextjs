@@ -42,6 +42,8 @@ class Portfolios extends Component {
 
   renderPortfolios(portfolios) {
     const { isAuthenticated, isSiteOwner } = this.props.auth;
+    console.log('isAuthenticated= ' + this.props.auth.isAuthenticated);
+    console.log('isSiteOwner= ' + this.props.auth.isSiteOwner);
 
     return portfolios.map((portfolio, index) => {
       return (
@@ -75,7 +77,10 @@ class Portfolios extends Component {
     const { portfolios } = this.props;
     const { isAuthenticated, isSiteOwner } = this.props.auth;
     return (
-      <BaseLayout {...this.props.auth}>
+      <BaseLayout
+        {...this.props.auth}
+        title="Popescu Daniel - Learn about my past work"
+      >
         <BasePage className="portfolio-page" title="Portfolios">
           {isAuthenticated && isSiteOwner && (
             <Button

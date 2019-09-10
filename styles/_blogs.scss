@@ -1,11 +1,3 @@
-// MIXINS
-@mixin background-cover() {
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
 // Blog LISTING!
 
 .blog-listing-page {
@@ -159,24 +151,27 @@
 
 // BLOG Editor Page
 
-blockquote {
-  border-left: 2px solid #ddd;
-  margin-left: 0;
-  margin-right: 0;
-  padding-left: 10px;
-  color: #aaa;
-  font-style: italic;
-  display: block;
-}
-@media only screen and (min-width: 991px) {
-  .editor-wrapper {
-    padding: 0 180px;
-  }
-  p {
-    font-size: 20px;
-  }
-}
+.blog-editor-page,
+.blog-detail-page {
+  @media only screen and (min-width: 991px) {
+    .editor-wrapper {
+      padding: 0 180px;
+    }
+    p {
+      font-size: 20px;
+    }
 
+    blockquote {
+      border-left: 2px solid #ddd;
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 10px;
+      color: #aaa;
+      font-style: italic;
+      display: block;
+    }
+  }
+}
 // USER BLOGS.................
 .base-page {
   &.blog-user-page {
@@ -195,6 +190,9 @@ blockquote {
     }
     .blog-title {
       font-weight: bold;
+    }
+    .port-dropdown {
+      margin-left: 10px;
     }
   }
 }
