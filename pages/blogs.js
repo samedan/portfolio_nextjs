@@ -11,7 +11,7 @@ class Blogs extends Component {
   static async getInitialProps({ req }) {
     let blogs = [];
     try {
-      blogs = await getBlogs(req);
+      blogs = await getBlogs();
     } catch (err) {
       console.error(err);
     }
