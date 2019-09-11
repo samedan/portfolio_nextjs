@@ -77,7 +77,7 @@ export const deletePortfolio = portfolioId => {
 //   });
 // };
 
-export const getBlogs = async req => {
+export const getBlogs = async () => {
   return await axiosInstance.get('/blogs').then(response => response.data);
 };
 
