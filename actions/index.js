@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { getCookieFromReq } from '../helpers/utils';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/api/v1',
+  baseURL: 'https://portfolio-daniel.herokuapp.com/api/v1',
   timeout: 3000 // time allowed before the request is rejected
 });
 
