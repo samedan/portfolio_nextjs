@@ -1,4 +1,5 @@
 const express = require('express');
+const compression = require('compression');
 const next = require('next');
 const mongoose = require('mongoose');
 const routes = require('../routes');
@@ -42,6 +43,7 @@ app
   .prepare()
   .then(() => {
     const server = express();
+    server.use(compression());
     server.use(bodyParser.json());
     server.use('/api/v1/books', booksRoutes);
     server.use('/api/v1/portfolios', portfolioRoutes);
