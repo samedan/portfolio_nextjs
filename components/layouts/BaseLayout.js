@@ -16,11 +16,16 @@ const BaseLayout = props => {
     <React.Fragment>
       <Head>
         <title>{title}</title>
-        <script src="https://kit.fontawesome.com/f4769bebe7.js"></script>
         <link
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap"
           rel="stylesheet"
-        ></link>
+        />
+        <script src="https://kit.fontawesome.com/f4769bebe7.js"></script>
+
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, width=device-width, maximum-scale=1, user-scalable=no"
+        ></meta>
       </Head>
       <div className="layout-container">
         <Header
